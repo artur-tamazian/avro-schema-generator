@@ -17,10 +17,14 @@ public class Enum extends Type {
         String allowedValues = column.getAttribute("COLUMN_TYPE").toString();
         this.symbols = allowedValues
                 .replaceFirst("enum", "")
+                .replaceFirst("ENUM", "")
                 .replace(")", "")
                 .replace("(", "")
-                .replaceAll("'", "")
                 .split(",");
+
+        for (int i = 0; i < symbols.length; i++) {
+            symbols[i] = symbols[i].trim().replaceAll("'", "");
+        }
     }
 
     public String getName() {

@@ -14,9 +14,6 @@ import static java.util.Arrays.asList;
  */
 final class AvroTypeUtil {
 
-    private AvroTypeUtil() {
-    }
-
     /**
      * Maps db {@link Column}s to {@link AvroType}s.
      * Mapping logic can be tweaked a bit using {@link AvroConfig}.

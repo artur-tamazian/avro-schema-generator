@@ -101,6 +101,16 @@ public class AvroTypeUtilTest {
     }
 
     @Test
+    public void testUserDefinedType() throws Exception {
+        Column column = column("test");
+        when(column.getType().isUserDefined()).thenReturn(true);
+
+        AvroType avroType = getAvroType(column, defaultConfig());
+        assertThat(avroType.getType(), instanceOf(Primitive.class));
+        assertThat(avroType.getType().getPrimitiveType(), is("string"));
+    }
+
+    @Test
     public void testOverrideNullable() throws Exception {
         AvroConfig avroConfig = defaultConfig().setNullableTrueByDefault(true);
         AvroType avroType = getAvroType(column("int"), avroConfig);

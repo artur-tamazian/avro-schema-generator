@@ -46,7 +46,7 @@ public class SchemaGenerationIntegrationTest {
 
     @Test
     public void testGenerationWithAllNullableFields() throws SQLException, IOException {
-        avroConfig.isNullableTrueByDefault();
+        avroConfig.setNullableTrueByDefault(true);
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
         assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/all_nullable.avsc")));
@@ -103,6 +103,16 @@ public class SchemaGenerationIntegrationTest {
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
         assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(getFileContent("/avro/custom_formatter.avsc")));
+    }
+
+    @Test
+    public void testCustomAddingProperties() throws Exception {
+        avroConfig.setAvroSchemaPostProcessor(((avroSchema, table) -> {
+            avroSchema.addCustomProperty("test-propertyy", "test-value");
+        }));
+
+        AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
+        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/custom_property.avsc")));
     }
 
     private String getFileContent(String fileName) throws IOException {
