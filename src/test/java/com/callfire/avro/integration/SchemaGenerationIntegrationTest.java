@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.function.Function;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -113,6 +114,27 @@ public class SchemaGenerationIntegrationTest {
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
         assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/custom_property.avsc")));
+    }
+
+    @Test
+    public void testGetAllAvroSchemas() throws Exception {
+        List<AvroSchema> result = schemaExtractor.getAll(avroConfig);
+        assertThat(result.size(), is(1));
+    }
+
+    @Test
+    public void testGetAvroSchemasInDbSchema() throws Exception {
+        List<AvroSchema> result = schemaExtractor.getForSchema(avroConfig, "public");
+        assertThat(result.size(), is(1));
+
+        result = schemaExtractor.getForSchema(avroConfig, "nonexisting");
+        assertThat(result.size(), is(0));
+    }
+
+    @Test
+    public void testGetAvroSchemasForTables() throws Exception {
+        List<AvroSchema> result = schemaExtractor.getForTables(avroConfig, "public", "test_records", "non_existing");
+        assertThat(result.size(), is(1));
     }
 
     private String getFileContent(String fileName) throws IOException {

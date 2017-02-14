@@ -135,6 +135,15 @@ public class AvroTypeUtilTest {
         assertThat(avroType.isNullable(), is(false));
     }
 
+    @Test
+    public void testUnknownTypeResolver() throws Exception {
+        AvroConfig avroConfig = defaultConfig().setUnknownTypeResolver(type -> "string");
+        AvroType avroType = getAvroType(column("wtf"), avroConfig);
+
+        assertThat(avroType.getType(), instanceOf(Primitive.class));
+        assertThat(avroType.getType().getPrimitiveType(), is("string"));
+    }
+
     private AvroConfig defaultConfig() {
         return new AvroConfig("test");
     }
