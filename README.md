@@ -3,6 +3,8 @@
 [![Join the chat at https://gitter.im/avro-schema-generator](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/avro-schema-generator?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # avro-schema-generator
+
+[![Join the chat at https://gitter.im/avro-schema-generator/Lobby](https://badges.gitter.im/avro-schema-generator/Lobby.svg)](https://gitter.im/avro-schema-generator/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Library for generating avro schema files (.avsc) based on DB tables structure.
 
 ## How it works:
