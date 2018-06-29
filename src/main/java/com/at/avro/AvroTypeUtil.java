@@ -1,13 +1,14 @@
 package com.at.avro;
 
+import static java.util.Arrays.asList;
+
 import com.at.avro.config.AvroConfig;
 import com.at.avro.types.Date;
 import com.at.avro.types.Decimal;
 import com.at.avro.types.Enum;
 import com.at.avro.types.Primitive;
-import schemacrawler.schema.Column;
 
-import static java.util.Arrays.asList;
+import schemacrawler.schema.Column;
 
 /**
  * @author artur@callfire.com
@@ -15,8 +16,8 @@ import static java.util.Arrays.asList;
 final class AvroTypeUtil {
 
     /**
-     * Maps db {@link Column}s to {@link AvroType}s.
-     * Mapping logic can be tweaked a bit using {@link AvroConfig}.
+     * Maps db Columns to AvroTypes.
+     * Mapping logic can be tweaked a bit using AvroConfig.
      */
     static AvroType getAvroType(Column column, AvroConfig config) {
         boolean nullable = column.isNullable() || config.isNullableTrueByDefault();

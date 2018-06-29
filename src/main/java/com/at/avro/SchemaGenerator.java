@@ -4,7 +4,7 @@ import com.at.avro.config.FormatterConfig;
 import com.at.avro.formatters.Formatter;
 
 /**
- * Generates avro schema json based on {@link AvroSchema} model objects.
+ * Generates avro schema json based on AvroSchema model objects.
  *
  * @author artur@callfire.com
  */
@@ -16,7 +16,7 @@ public class SchemaGenerator {
         return generate(schema, defaultConfig);
     }
 
-    /** Generates an avro schema based on a given {@link FormatterConfig} */
+    /** Generates an avro schema based on a given FormatterConfig */
     public static String generate(AvroSchema schema, FormatterConfig config) {
         Formatter<AvroSchema> formatter = config.getFormatter(schema);
         return formatter.toJson(schema, config);

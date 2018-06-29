@@ -5,7 +5,7 @@ import com.at.avro.AvroField;
 import com.at.avro.AvroSchema;
 
 /**
- * Writes avro schema json based on {@link AvroSchema} bean.
+ * Writes avro schema json based on AvroSchema bean.
  *
  * @author artur@callfire.com
  */

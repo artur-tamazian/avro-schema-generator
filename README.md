@@ -64,6 +64,16 @@ for (AvroSchema schema : schemas) {
 }
 ```
 
+## Maven dependency
+
+```
+<dependency>
+  <groupId>com.github.artur-tamazian</groupId>
+  <artifactId>avro-schema-generator</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## Supported databases
 
 DB crawling is done using the SchemaCrawler http://www.schemacrawler.com/. So it should work fine with RDBMS mentioned here: http://sualeh.github.io/SchemaCrawler/database-support.html.

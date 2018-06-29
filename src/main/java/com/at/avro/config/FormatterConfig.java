@@ -21,8 +21,8 @@ import com.at.avro.types.Primitive;
 
 /**
  * Avro schema json formatters configuration.
- * It has default formatters for each Avro bean (ie {@link AvroSchema}, {@link AvroField}, etc).
- * They can be customized by implementing {@link Formatter} interface and registering it as {@link FormatterConfig::setFormatter}.
+ * It has default formatters for each Avro bean (ie AvroSchema, AvroField, etc).
+ * They can be customized by implementing Formatter interface and registering it as FormatterConfig::setFormatter.
  *
  * @author artur@callfire.com
  */

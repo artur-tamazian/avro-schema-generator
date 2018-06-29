@@ -1,21 +1,30 @@
 package com.at.avro;
 
-import com.at.avro.config.AvroConfig;
-import schemacrawler.schema.Catalog;
-import schemacrawler.schema.Schema;
-import schemacrawler.schema.Table;
-import schemacrawler.schemacrawler.*;
-import schemacrawler.utility.SchemaCrawlerUtility;
+import static java.util.stream.Collectors.toList;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 
-import static java.util.stream.Collectors.toList;
+import com.at.avro.config.AvroConfig;
+
+import schemacrawler.schema.Catalog;
+import schemacrawler.schema.Schema;
+import schemacrawler.schema.Table;
+import schemacrawler.schemacrawler.ExcludeAll;
+import schemacrawler.schemacrawler.IncludeAll;
+import schemacrawler.schemacrawler.RegularExpressionInclusionRule;
+import schemacrawler.schemacrawler.SchemaCrawlerException;
+import schemacrawler.schemacrawler.SchemaCrawlerOptions;
+import schemacrawler.schemacrawler.SchemaInfoLevelBuilder;
+import schemacrawler.utility.SchemaCrawlerUtility;
 
 /**
- * Connects to a db and populates {@link AvroSchema} beans for existing tables.
+ * Connects to a db and populates AvroSchema beans for existing tables.
  *
  * @author artur@callfire.com
  */
@@ -33,22 +42,22 @@ public class DbSchemaExtractor {
         this.connectionUrl = connectionUrl;
     }
 
-    /** Returns all {@link AvroSchema}s that are present in a target DB */
+    /** Returns all AvroSchemas that are present in a target DB */
     public List<AvroSchema> getAll(AvroConfig avroConfig) {
         return get(avroConfig, null);
     }
 
-    /** Returns all {@link AvroSchema}s that are present in given DB schema */
+    /** Returns all AvroSchemas that are present in given DB schema */
     public List<AvroSchema> getForSchema(AvroConfig avroConfig, String dbSchemaName) {
         return get(avroConfig, dbSchemaName);
     }
 
-    /** Returns {@link AvroSchema}s for each of given tables */
+    /** Returns AvroSchemas for each of given tables */
     public List<AvroSchema> getForTables(AvroConfig avroConfig, String dbSchemaName, String... tableNames) {
         return get(avroConfig, dbSchemaName, tableNames);
     }
 
-    /** Returns {@link AvroSchema} for a specific table */
+    /** Returns AvroSchema for a specific table */
     public AvroSchema getForTable(AvroConfig avroConfig, String dbSchemaName, String tableName) {
         List<AvroSchema> schemas = get(avroConfig, dbSchemaName, tableName);
         if (schemas.isEmpty()) {

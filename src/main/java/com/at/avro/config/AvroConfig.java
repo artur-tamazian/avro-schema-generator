@@ -127,12 +127,12 @@ public class AvroConfig {
     }
 
     /**
-     * Provide mapper for unknown db types. Throws {@link IllegalArgumentException} by default.
+     * Provide mapper for unknown db types. Throws IllegalArgumentException by default.
      * For example, if you want to default all unknown types to string:
      * <code>
      *     avroConfig.setUnknownTypeResolver(type -> "string")
      * </code>
-     * {@link IllegalArgumentException} is thrown by default.
+     * IllegalArgumentException is thrown by default.
      **/
     public AvroConfig setUnknownTypeResolver(Function<String, String> unknownTypeResolver) {
         this.unknownTypeResolver = unknownTypeResolver;
