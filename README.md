@@ -76,6 +76,6 @@ for (AvroSchema schema : schemas) {
 
 ## Supported databases
 
-DB crawling is done using the SchemaCrawler http://www.schemacrawler.com/. So it should work fine with RDBMS mentioned here: http://sualeh.github.io/SchemaCrawler/database-support.html.
+DB crawling is done using the SchemaCrawler http://www.schemacrawler.com/. So it should work fine with RDBMS mentioned here: http://www.schemacrawler.com/database-support.html.
 
 avro-schema-generator itself was successfully used with MySQL and PostgreSQL.
