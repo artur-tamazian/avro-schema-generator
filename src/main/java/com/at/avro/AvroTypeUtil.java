@@ -48,12 +48,14 @@ final class AvroTypeUtil {
 
             case "integer":
             case "int":
+            case "int unsigned":
             case "int2":
             case "int4":
             case "smallint":
             case "serial":
             case "smallserial":
-            case "tinyint": return "int";
+            case "tinyint":
+            case "tinyint unsigned": return "int";
 
             case "tinyblob":
             case "blob":
@@ -63,7 +65,8 @@ final class AvroTypeUtil {
 
             case "int8":
             case "bigserial":
-            case "bigint": return "long";
+            case "bigint":
+            case "bigint unsigned": return "long";
 
             case "bit":
             case "bool":
