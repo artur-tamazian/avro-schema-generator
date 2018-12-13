@@ -66,6 +66,9 @@ public class AvroTypeUtilTest {
 
         validatePrimitiveType("real", "float");
         validatePrimitiveType("float4", "float");
+        validatePrimitiveType("int unsigned", "int");
+        validatePrimitiveType("tinyint unsigned", "int");
+        validatePrimitiveType("bigint unsigned", "long");
     }
 
     @Test
