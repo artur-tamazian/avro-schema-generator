@@ -69,6 +69,9 @@ public class AvroTypeUtilTest {
         validatePrimitiveType("int unsigned", "int");
         validatePrimitiveType("tinyint unsigned", "int");
         validatePrimitiveType("bigint unsigned", "long");
+        validatePrimitiveType("smallint unsigned", "int");
+        validatePrimitiveType("mediumint", "int");
+        validatePrimitiveType("mediumint unsigned", "int");
     }
 
     @Test
