@@ -51,7 +51,10 @@ final class AvroTypeUtil {
             case "int unsigned":
             case "int2":
             case "int4":
+            case "mediumint":
+            case "mediumint unsigned":
             case "smallint":
+            case "smallint unsigned":
             case "serial":
             case "smallserial":
             case "tinyint":
