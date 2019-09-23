@@ -79,3 +79,9 @@ for (AvroSchema schema : schemas) {
 DB crawling is done using the SchemaCrawler http://www.schemacrawler.com/. So it should work fine with RDBMS mentioned here: http://www.schemacrawler.com/database-support.html.
 
 avro-schema-generator itself was successfully used with MySQL and PostgreSQL.
+
+## TODO / Suggested contributions
+
+- Migrate to newer version of [Schema Crawler](https://github.com/schemacrawler/SchemaCrawler)
+- Add basic toString() implementations to models classes.
+  - Consider using [Project Lombok](https://projectlombok.org/features/Data)
