@@ -6,6 +6,7 @@ import com.at.avro.types.Decimal;
 import com.at.avro.types.Primitive;
 import org.junit.Test;
 import schemacrawler.schema.Column;
+import schemacrawler.schema.ColumnDataType;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -155,7 +156,11 @@ public class AvroTypeUtilTest {
 
     private Column column(String dbType) {
         Column column = mock(Column.class, RETURNS_DEEP_STUBS);
-        when(column.getType().getName()).thenReturn(dbType);
+        ColumnDataType columnDataType = mock(ColumnDataType.class);
+
+        when(columnDataType.getName()).thenReturn(dbType);
+        when(column.getType()).thenReturn(columnDataType);
+
         return column;
     }
 }

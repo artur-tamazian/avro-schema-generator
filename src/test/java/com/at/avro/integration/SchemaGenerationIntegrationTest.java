@@ -123,12 +123,14 @@ public class SchemaGenerationIntegrationTest {
     }
 
     @Test
-    public void testGetAvroSchemasInDbSchema() throws Exception {
+    public void testGetAvroSchemasInExistingDbSchema() throws Exception {
         List<AvroSchema> result = schemaExtractor.getForSchema(avroConfig, "public");
         assertThat(result.size(), is(1));
+    }
 
-        result = schemaExtractor.getForSchema(avroConfig, "nonexisting");
-        assertThat(result.size(), is(0));
+    @Test(expected = RuntimeException.class)
+    public void testGetAvroSchemasInMissingDbSchema() throws Exception {
+        schemaExtractor.getForSchema(avroConfig, "nonexisting");
     }
 
     @Test
