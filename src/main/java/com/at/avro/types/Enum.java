@@ -1,5 +1,7 @@
 package com.at.avro.types;
 
+import java.util.Arrays;
+
 import schemacrawler.schema.Column;
 
 /**
@@ -33,5 +35,10 @@ public class Enum extends Type {
 
     public String[] getSymbols() {
         return symbols;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ": " + getName() + "[" + Arrays.toString(getSymbols()) + "]";
     }
 }

@@ -1,6 +1,7 @@
 package com.at.avro.types;
 
 import com.at.avro.config.AvroConfig;
+
 import schemacrawler.schema.Column;
 
 /**
@@ -34,5 +35,10 @@ public class Decimal extends Type {
 
     public int getScale() {
         return scale;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ": " + logicalType + "[" + getPrecision() + ":" + getScale() + "]";
     }
 }

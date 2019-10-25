@@ -1,10 +1,15 @@
 package com.at.avro;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
+
 import com.at.avro.config.AvroConfig;
+
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
-
-import java.util.*;
 
 /**
  * @author artur@callfire.com
@@ -47,5 +52,15 @@ public class AvroSchema {
 
     public Map<String, String> getCustomProperties() {
         return customProperties;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", AvroSchema.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("namespace='" + namespace + "'")
+                .add("fields=" + fields)
+                .add("customProperties=" + customProperties)
+                .toString();
     }
 }

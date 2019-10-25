@@ -1,5 +1,7 @@
 package com.at.avro;
 
+import java.util.StringJoiner;
+
 import com.at.avro.types.Type;
 
 /**
@@ -23,5 +25,13 @@ public class AvroType {
 
     public boolean isNullable() {
         return nullable;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", AvroType.class.getSimpleName() + "[", "]")
+                .add("type=" + type)
+                .add("nullable=" + nullable)
+                .toString();
     }
 }

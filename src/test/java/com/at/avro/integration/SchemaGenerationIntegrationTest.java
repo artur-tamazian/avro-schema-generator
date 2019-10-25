@@ -1,5 +1,18 @@
 package com.at.avro.integration;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.function.Function;
+
+import org.apache.commons.io.IOUtils;
+import org.junit.*;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+
 import com.at.avro.AvroSchema;
 import com.at.avro.DbSchemaExtractor;
 import com.at.avro.SchemaGenerator;
@@ -8,19 +21,6 @@ import com.at.avro.config.FormatterConfig;
 import com.at.avro.formatters.SchemaFormatter;
 import com.at.avro.mappers.RemovePlural;
 import com.at.avro.mappers.ToCamelCase;
-import org.apache.commons.io.IOUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.function.Function;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
 
 /**
  * @author artur@callfire.com
@@ -137,6 +137,25 @@ public class SchemaGenerationIntegrationTest {
     public void testGetAvroSchemasForTables() throws Exception {
         List<AvroSchema> result = schemaExtractor.getForTables(avroConfig, "public", "test_records", "non_existing");
         assertThat(result.size(), is(1));
+    }
+
+    @Test
+    public void testToString() {
+        AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
+        assertThat(avroSchema.toString(), is(
+            "AvroSchema[" +
+                "name='test_records', namespace='test.namespace', " +
+                "fields=[" +
+                    "AvroField[name='id', type=AvroType[type=Primitive(int), nullable=false]], " +
+                    "AvroField[name='name', type=AvroType[type=Primitive(string), nullable=true]], " +
+                    "AvroField[name='created', type=AvroType[type=Date(long): timestamp-millis, nullable=false]], " +
+                    "AvroField[name='updated', type=AvroType[type=Date(long): timestamp-millis, nullable=true]], " +
+                    "AvroField[name='decimal_field', type=AvroType[type=Decimal(string): decimal[20:3], nullable=true]], " +
+                    "AvroField[name='other_decimal_field', type=AvroType[type=Decimal(string): decimal[128:0], nullable=true]]" +
+                "], " +
+                "customProperties={}" +
+             "]"
+        ));
     }
 
     private String getFileContent(String fileName) throws IOException {

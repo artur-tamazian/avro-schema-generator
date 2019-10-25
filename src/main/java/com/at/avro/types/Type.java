@@ -14,4 +14,9 @@ public abstract class Type {
     public String getPrimitiveType() {
         return primitiveType;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" + primitiveType + ")";
+    }
 }

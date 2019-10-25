@@ -1,5 +1,7 @@
 package com.at.avro;
 
+import java.util.StringJoiner;
+
 import com.at.avro.config.AvroConfig;
 
 import schemacrawler.schema.Column;
@@ -45,5 +47,17 @@ public class AvroField {
 
     public boolean isDefaultValueSet() {
         return defaultValue != NOT_SET;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner joiner = new StringJoiner(", ", AvroField.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("type=" + type);
+
+        if (defaultValue != NOT_SET) {
+            joiner.add("defaultValue=" + defaultValue);
+        }
+        return joiner.toString();
     }
 }

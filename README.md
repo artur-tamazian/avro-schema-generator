@@ -82,6 +82,6 @@ avro-schema-generator itself was successfully used with MySQL and PostgreSQL.
 
 ## TODO / Suggested contributions
 
-- Migrate to newer version of [Schema Crawler](https://github.com/schemacrawler/SchemaCrawler)
-- Add basic toString() implementations to models classes.
-  - Consider using [Project Lombok](https://projectlombok.org/features/Data)
+- Refactor using [Project Lombok](https://projectlombok.org/features/Data)
+- Add missing or db-specific types support
+- Migrate to Gradle

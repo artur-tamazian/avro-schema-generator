@@ -24,4 +24,9 @@ public class Date extends Type {
     public String getJavaClass() {
         return javaClass;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ": " + getLogicalType();
+    }
 }
