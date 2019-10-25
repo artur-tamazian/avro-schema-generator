@@ -4,7 +4,7 @@
 
     <groupId>com.github.artur-tamazian</groupId>
     <artifactId>avro-schema-generator</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <name>avro-schema-generator</name>
     <description>Library for generating avro schema files (.avsc) based on DB tables structure</description>
@@ -202,7 +202,6 @@
         <connection>scm:git:git://github.com/artur-tamazian/avro-schema-generator.git</connection>
         <developerConnection>scm:git:ssh://github.com:artur-tamazian/avro-schema-generator.git</developerConnection>
         <url>https://github.com/artur-tamazian/avro-schema-generator</url>
-      <tag>avro-schema-generator-1.0.3</tag>
-  </scm>
+    </scm>
 
 </project>
