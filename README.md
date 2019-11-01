@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/artur-tamazian/avro-schema-generator.svg?branch=master)](https://travis-ci.org/artur-tamazian/avro-schema-generator)
-[![Coverage](https://codecov.io/gh/artur-tamazian/avro-schema-generator/branch/master/graph/badge.svg)](https://codecov.io/gh/artur-tamazian/avro-schema-generator)
-[![Join the chat at https://gitter.im/avro-schema-generator](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/avro-schema-generator?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://img.shields.io/travis/artur-tamazian/avro-schema-generator/master?logo=travis&style=for-the-badge)](https://travis-ci.org/artur-tamazian/avro-schema-generator)
+[![Chat in Gitter](https://img.shields.io/gitter/room/artur-tamazian/avro-schema-generator?logo=gitter&style=for-the-badge)](https://gitter.im/avro-schema-generator/Lobby)
 
 # avro-schema-generator
 Library for generating avro schema files (.avsc) based on DB tables structure.
