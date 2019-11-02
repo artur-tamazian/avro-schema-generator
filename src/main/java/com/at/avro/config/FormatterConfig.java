@@ -6,18 +6,9 @@ import java.util.Map;
 import com.at.avro.AvroField;
 import com.at.avro.AvroSchema;
 import com.at.avro.AvroType;
-import com.at.avro.formatters.DateFormatter;
-import com.at.avro.formatters.DecimalFormatter;
-import com.at.avro.formatters.EnumFormatter;
-import com.at.avro.formatters.FieldFormatter;
-import com.at.avro.formatters.Formatter;
-import com.at.avro.formatters.PrimitiveFormatter;
-import com.at.avro.formatters.SchemaFormatter;
-import com.at.avro.formatters.TypeFormatter;
-import com.at.avro.types.Date;
-import com.at.avro.types.Decimal;
+import com.at.avro.formatters.*;
+import com.at.avro.types.*;
 import com.at.avro.types.Enum;
-import com.at.avro.types.Primitive;
 
 /**
  * Avro schema json formatters configuration.
@@ -42,6 +33,7 @@ public class FormatterConfig {
             put(Enum.class, new EnumFormatter());
             put(Primitive.class, new PrimitiveFormatter());
             put(Decimal.class, new DecimalFormatter());
+            put(Array.class, new ArrayFormatter());
     }};
 
     private FormatterConfig() {

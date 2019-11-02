@@ -1,15 +1,13 @@
 package com.at.avro.integration;
 
+import static helper.Utils.classPathResourceContent;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.HSQL;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Function;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.*;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
@@ -40,59 +38,59 @@ public class SchemaGenerationIntegrationTest {
     }
 
     @Test
-    public void testGenerationWithDefaultSettings() throws SQLException, IOException {
+    public void testGenerationWithDefaultSettings() {
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/default.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/avro/default.avsc")));
     }
 
     @Test
-    public void testGenerationWithAllNullableFields() throws SQLException, IOException {
+    public void testGenerationWithAllNullableFields() {
         avroConfig.setNullableTrueByDefault(true);
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/all_nullable.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/avro/all_nullable.avsc")));
     }
 
     @Test
-    public void testGenerationAllFieldsDefaultNull() throws SQLException, IOException {
+    public void testGenerationAllFieldsDefaultNull() {
         avroConfig.setAllFieldsDefaultNull(true);
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/all_fields_default_null.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/avro/all_fields_default_null.avsc")));
     }
 
     @Test
-    public void testSpecificFormatterConfig() throws SQLException, IOException {
+    public void testSpecificFormatterConfig() {
         FormatterConfig formatterConfig = FormatterConfig.builder()
                 .setIndent("    ")
                 .setPrettyPrintFields(true)
                 .build();
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(getFileContent("/avro/pretty_print_bigger_indent.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(classPathResourceContent("/avro/pretty_print_bigger_indent.avsc")));
     }
 
     @Test
-    public void testNonPrettyPrint() throws SQLException, IOException {
+    public void testNonPrettyPrint() {
         FormatterConfig formatterConfig = FormatterConfig.builder()
                 .setPrettyPrintSchema(false)
                 .build();
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(getFileContent("/avro/non_pretty_print.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(classPathResourceContent("/avro/non_pretty_print.avsc")));
     }
 
     @Test
-    public void testNameMappers() throws SQLException, IOException {
+    public void testNameMappers() {
         Function<String, String> nameMapper = new ToCamelCase().andThen(new RemovePlural());
         avroConfig.setSchemaNameMapper(nameMapper).setFieldNameMapper(nameMapper);
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/camel_case.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/avro/camel_case.avsc")));
     }
 
     @Test
-    public void testOverrideFormatter() throws Exception {
+    public void testOverrideFormatter() {
         FormatterConfig formatterConfig = FormatterConfig.builder()
                 .setFormatter(AvroSchema.class, new SchemaFormatter() {
                     @Override
@@ -103,38 +101,38 @@ public class SchemaGenerationIntegrationTest {
                 .build();
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(getFileContent("/avro/custom_formatter.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema, formatterConfig), is(classPathResourceContent("/avro/custom_formatter.avsc")));
     }
 
     @Test
-    public void testCustomAddingProperties() throws Exception {
+    public void testCustomAddingProperties() {
         avroConfig.setAvroSchemaPostProcessor(((avroSchema, table) -> {
             avroSchema.addCustomProperty("test-propertyy", "test-value");
         }));
 
         AvroSchema avroSchema = schemaExtractor.getForTable(avroConfig, "public", "test_records");
-        assertThat(SchemaGenerator.generate(avroSchema), is(getFileContent("/avro/custom_property.avsc")));
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/avro/custom_property.avsc")));
     }
 
     @Test
-    public void testGetAllAvroSchemas() throws Exception {
+    public void testGetAllAvroSchemas() {
         List<AvroSchema> result = schemaExtractor.getAll(avroConfig);
         assertThat(result.size(), is(1));
     }
 
     @Test
-    public void testGetAvroSchemasInExistingDbSchema() throws Exception {
+    public void testGetAvroSchemasInExistingDbSchema() {
         List<AvroSchema> result = schemaExtractor.getForSchema(avroConfig, "public");
         assertThat(result.size(), is(1));
     }
 
     @Test(expected = RuntimeException.class)
-    public void testGetAvroSchemasInMissingDbSchema() throws Exception {
+    public void testGetAvroSchemasInMissingDbSchema() {
         schemaExtractor.getForSchema(avroConfig, "nonexisting");
     }
 
     @Test
-    public void testGetAvroSchemasForTables() throws Exception {
+    public void testGetAvroSchemasForTables() {
         List<AvroSchema> result = schemaExtractor.getForTables(avroConfig, "public", "test_records", "non_existing");
         assertThat(result.size(), is(1));
     }
@@ -156,9 +154,5 @@ public class SchemaGenerationIntegrationTest {
                 "customProperties={}" +
              "]"
         ));
-    }
-
-    private String getFileContent(String fileName) throws IOException {
-        return IOUtils.toString(SchemaGenerationIntegrationTest.class.getResourceAsStream(fileName), "UTF-8");
     }
 }

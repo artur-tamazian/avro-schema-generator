@@ -1,14 +1,11 @@
 package com.at.avro;
 
-import static java.util.Arrays.asList;
-
 import com.at.avro.config.AvroConfig;
-import com.at.avro.types.Date;
-import com.at.avro.types.Decimal;
 import com.at.avro.types.Enum;
-import com.at.avro.types.Primitive;
-
+import com.at.avro.types.*;
 import schemacrawler.schema.Column;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author artur@callfire.com
@@ -22,6 +19,7 @@ final class AvroTypeUtil {
     static AvroType getAvroType(Column column, AvroConfig config) {
         boolean nullable = column.isNullable() || config.isNullableTrueByDefault();
         String type = column.getType().getName().toLowerCase();
+        Class typeClz = column.getType().getTypeMappedClass();
 
         if (type.equalsIgnoreCase("enum")) {
             if (config.representEnumsAsStrings()) {
@@ -38,6 +36,8 @@ final class AvroTypeUtil {
         }
         else if (asList("timestamp", "datetime", "date", "time").contains(type)) {
             return new AvroType(new Date(column, config), nullable);
+        } else if (typeClz == java.sql.Array.class) {
+            return new AvroType(new Array(new Primitive(getPrimitiveType(type.substring(1), config))), nullable);
         }
 
         return new AvroType(new Primitive(getPrimitiveType(type, config)), nullable);
