@@ -1,10 +1,9 @@
 package com.at.avro;
 
-import java.util.StringJoiner;
-
 import com.at.avro.config.AvroConfig;
-
 import schemacrawler.schema.Column;
+
+import java.util.StringJoiner;
 
 /**
  * @author artur@callfire.com
@@ -19,9 +18,9 @@ public class AvroField {
 
     public AvroField(Column column, AvroConfig avroConfig) {
         String columnName = column.getName()
-                .replaceAll("`", "")
-                .replaceAll("\"", "")
-                .replaceAll("'", "");
+            .replaceAll("`", "")
+            .replaceAll("\"", "")
+            .replaceAll("'", "");
 
         name = avroConfig.getFieldNameMapper().apply(columnName);
         type = AvroTypeUtil.getAvroType(column, avroConfig);
@@ -29,7 +28,7 @@ public class AvroField {
         if (avroConfig.isAllFieldsDefaultNull()) {
             defaultValue = null;
         } else if (column.getDefaultValue() != null) {
-            defaultValue = column.getDefaultValue();
+            defaultValue = column.getDefaultValue().contains("NULL") ? null : defaultValue;
         }
     }
 
@@ -52,8 +51,8 @@ public class AvroField {
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner(", ", AvroField.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
-                .add("type=" + type);
+            .add("name='" + name + "'")
+            .add("type=" + type);
 
         if (defaultValue != NOT_SET) {
             joiner.add("defaultValue=" + defaultValue);

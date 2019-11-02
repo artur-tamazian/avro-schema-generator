@@ -10,5 +10,9 @@ indent_style = space
 [*.java]
 indent_size = 4
 
-[*.{yml, yaml, conf, json, avsc}]
+[*.{yml, yaml, conf, json}]
 indent_size = 2
+
+[*.avsc]
+indent_size = 2
+insert_final_newline = false

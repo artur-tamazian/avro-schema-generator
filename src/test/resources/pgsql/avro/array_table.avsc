@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "array_table",
+  "namespace": "pgsql",
+
+  "fields": [
+    { "name": "id", "type": "int" },
+    { "name": "addresses11", "type": [ "null", { "type": "array", "items": "string" } ] },
+    { "name": "addresses12", "type": { "type": "array", "items": "string" } },
+    { "name": "addresses21", "type": [ "null", { "type": "array", "items": "string" } ] },
+    { "name": "addresses22", "type": { "type": "array", "items": "string" } },
+    { "name": "ages11", "type": [ "null", { "type": "array", "items": "int" } ] },
+    { "name": "ages12", "type": [ "null", { "type": "array", "items": "int" } ] }
+  ]
+}
