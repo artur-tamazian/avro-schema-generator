@@ -14,10 +14,9 @@
     <properties>
         <schemacrawler.version>16.2.4</schemacrawler.version>
         <modeshape-common.version>5.3.0.Final</modeshape-common.version>
-        <spring-jdbc.version>4.2.0.RELEASE</spring-jdbc.version>
         <mockito.version>3.1.0</mockito.version>
         <junit.version>4.12</junit.version>
-        <hsqldb.version>2.3.2</hsqldb.version>
+        <hsqldb.version>2.5.0</hsqldb.version>
         <commons-io.version>2.5</commons-io.version>
         <testcontainers.version>1.12.3</testcontainers.version>
     </properties>
@@ -167,13 +166,6 @@
             <groupId>org.modeshape</groupId>
             <artifactId>modeshape-common</artifactId>
             <version>${modeshape-common.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring-jdbc.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>

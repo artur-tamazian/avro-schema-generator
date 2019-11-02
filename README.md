@@ -1,8 +1,8 @@
 [![Build Status](https://img.shields.io/travis/artur-tamazian/avro-schema-generator/master?logo=travis&style=flat-square)](https://travis-ci.org/artur-tamazian/avro-schema-generator)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.artur-tamazian/avro-schema-generator?style=flat-square)](https://mvnrepository.com/artifact/com.github.artur-tamazian/avro-schema-generator)
 [![Codecov](https://img.shields.io/codecov/c/github/artur-tamazian/avro-schema-generator?style=flat-square)](https://codecov.io/gh/artur-tamazian/avro-schema-generator)
 [![Chat in Gitter](https://img.shields.io/gitter/room/artur-tamazian/avro-schema-generator?logo=gitter&style=flat-square)](https://gitter.im/avro-schema-generator/Lobby)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.artur-tamazian/avro-schema-generator?style=flat-square)](https://mvnrepository.com/artifact/com.github.artur-tamazian/avro-schema-generator)
-
+[![MIT License](https://img.shields.io/github/license/artur-tamazian/avro-schema-generator?style=flat-square)](https://opensource.org/licenses/MIT)
 
 # avro-schema-generator
 Library for generating avro schema files (.avsc) based on DB tables structure.
