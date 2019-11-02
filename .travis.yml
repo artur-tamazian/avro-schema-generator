@@ -5,3 +5,9 @@ dist: xenial
 jdk:
 - openjdk8
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    - CODECOV_TOKEN=67f0c510-f19a-40d3-af43-920282daad17
