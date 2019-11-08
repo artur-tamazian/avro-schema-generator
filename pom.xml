@@ -214,6 +214,7 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>6.0.8</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
