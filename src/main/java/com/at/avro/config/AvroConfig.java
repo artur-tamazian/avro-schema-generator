@@ -19,6 +19,7 @@ public class AvroConfig {
     private boolean representEnumsAsStrings = false;
     private boolean nullableTrueByDefault = false;
     private boolean allFieldsDefaultNull = false;
+    private boolean useSqlCommentsAsDoc = false;
 
     private Class<?> decimalTypeClass = BigDecimal.class;
     private Class<?> dateTypeClass = Date.class;
@@ -125,7 +126,7 @@ public class AvroConfig {
     public Class<?> getDecimalTypeClass() {
         return decimalTypeClass;
     }
-
+    
     /**
      * Provide mapper for unknown db types. Throws IllegalArgumentException by default.
      * For example, if you want to default all unknown types to string:
@@ -138,11 +139,11 @@ public class AvroConfig {
         this.unknownTypeResolver = unknownTypeResolver;
         return this;
     }
-
+    
     public Function<String, String> getUnknownTypeResolver() {
         return unknownTypeResolver;
     }
-
+    
     /**
      * Set a callback that will be called after avro model was built.
      * Schema model is ready by this point, but you can still modify it by adding custom properties.
@@ -151,8 +152,21 @@ public class AvroConfig {
         this.avroSchemaPostProcessor = avroSchemaPostProcessor;
         return this;
     }
-
+    
     public BiConsumer<AvroSchema, Table> getAvroSchemaPostProcessor() {
         return avroSchemaPostProcessor;
     }
+    
+    /**
+     * Set to true to use SQL comments at table and field level as optional avro doc fields.
+     */
+    public AvroConfig setUseSqlCommentsAsDoc(boolean useSqlCommentsAsDoc) {
+        this.useSqlCommentsAsDoc = useSqlCommentsAsDoc;
+        return this;
+    }
+    
+    public boolean isUseSqlCommentsAsDoc() {
+        return useSqlCommentsAsDoc;
+    }
+    
 }

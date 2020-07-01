@@ -17,6 +17,7 @@ import schemacrawler.schema.Table;
 public class AvroSchema {
     private final String name;
     private final String namespace;
+    private final String doc;
 
     private List<AvroField> fields;
 
@@ -25,6 +26,7 @@ public class AvroSchema {
     public AvroSchema(Table table, AvroConfig avroConfig) {
         this.name = avroConfig.getSchemaNameMapper().apply(table.getName());
         this.namespace = avroConfig.getNamespace();
+        this.doc = avroConfig.isUseSqlCommentsAsDoc() ? table.getRemarks() : null;
         this.fields = new ArrayList<>(table.getColumns().size());
 
         for (Column column : table.getColumns()) {
@@ -41,6 +43,14 @@ public class AvroSchema {
     public String getNamespace() {
         return namespace;
     }
+    
+    public String getDoc() {
+        return doc;
+    }
+    
+    public boolean isDocSet() {
+        return doc != null;
+    }
 
     public List<AvroField> getFields() {
         return fields;
@@ -56,11 +66,17 @@ public class AvroSchema {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", AvroSchema.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
-                .add("namespace='" + namespace + "'")
-                .add("fields=" + fields)
-                .add("customProperties=" + customProperties)
-                .toString();
+        StringJoiner joiner = new StringJoiner(", ", AvroSchema.class.getSimpleName() + "[", "]")
+            .add("name='" + name + "'")
+            .add("namespace='" + namespace + "'");
+        
+        if (doc != null) {
+            joiner.add("doc='" + doc + "'");
+        }
+        joiner
+            .add("fields=" + fields)
+            .add("customProperties=" + customProperties);
+        
+        return joiner.toString();
     }
 }

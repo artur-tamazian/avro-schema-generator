@@ -138,13 +138,13 @@ public class HsqlIntegrationTest {
     @Test
     public void testGetAllAvroSchemas() {
         List<AvroSchema> result = extractor.getAll(avroConfig);
-        assertThat(result.size(), is(2));
+        assertThat(result.size(), is(3));
     }
 
     @Test
     public void testGetAvroSchemasInExistingDbSchema() {
         List<AvroSchema> result = extractor.getForSchema(avroConfig, "public");
-        assertThat(result.size(), is(2));
+        assertThat(result.size(), is(3));
     }
 
     @Test(expected = RuntimeException.class)
@@ -176,4 +176,13 @@ public class HsqlIntegrationTest {
                 "]"
         ));
     }
+    
+    @Test
+    public void testUseSqlCommentsAsDoc() {
+        avroConfig.setUseSqlCommentsAsDoc(true);
+        
+        AvroSchema avroSchema = extractor.getForTable(avroConfig, "public", "test_comments");
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/hsql/avro/use_sql_comments_as_doc.avsc")));
+    }
+    
 }
