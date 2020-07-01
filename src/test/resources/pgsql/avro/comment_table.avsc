@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "name": "comment_table",
+  "namespace": "pgsql",
+  "doc": "Table with comments.",
+
+  "fields": [
+    { "name": "id", "type": "int", "doc": "Id for the comment table." },
+    { "name": "first_name", "type": "string", "doc": "" },
+    { "name": "last_name", "type": [ "null", "string" ], "doc": "" },
+    { "name": "address", "type": [ "null", "string" ], "default": null, "doc": "" },
+    { "name": "created", "type": { "type": "long", "logicalType": "timestamp-millis", "java-class": "java.util.Date" }, "doc": "" },
+    { "name": "updated", "type": [ "null", { "type": "long", "logicalType": "timestamp-millis", "java-class": "java.util.Date" } ], "doc": "" },
+    { "name": "decimal_field", "type": [ "null", { "type": "string", "java-class": "java.math.BigDecimal", "logicalType": "decimal", "precision": 20, "scale": 3 } ], "doc": "" },
+    { "name": "other_decimal_field", "type": [ "null", { "type": "string", "java-class": "java.math.BigDecimal", "logicalType": "decimal", "precision": 131089, "scale": 0 } ], "doc": "" }
+  ]
+}

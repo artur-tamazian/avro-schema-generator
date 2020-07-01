@@ -20,6 +20,10 @@ public class SchemaFormatter implements Formatter<AvroSchema> {
                 .append(formatLine(config, "type", "record"))
                 .append(formatLine(config, "name", avroSchema.getName()))
                 .append(formatLine(config, "namespace", avroSchema.getNamespace()));
+        
+        if (avroSchema.isDocSet()) {
+            builder.append(formatLine(config, "doc", avroSchema.getDoc()));
+        }
 
         avroSchema.getCustomProperties().forEach((key, value) -> {
             builder.append(formatLine(config, key, value));

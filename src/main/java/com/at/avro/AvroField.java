@@ -15,6 +15,7 @@ public class AvroField {
     private String name;
     private AvroType type;
     private Object defaultValue = NOT_SET;
+    private String doc;
 
     public AvroField(Column column, AvroConfig avroConfig) {
         String columnName = column.getName()
@@ -29,6 +30,10 @@ public class AvroField {
             defaultValue = null;
         } else if (column.getDefaultValue() != null) {
             defaultValue = column.getDefaultValue().contains("NULL") ? null : defaultValue;
+        }
+        
+        if (avroConfig.isUseSqlCommentsAsDoc()) {
+            doc = column.getRemarks();
         }
     }
 
@@ -47,6 +52,14 @@ public class AvroField {
     public boolean isDefaultValueSet() {
         return defaultValue != NOT_SET;
     }
+    
+    public String getDoc() {
+        return doc;
+    }
+    
+    public boolean isDocSet() {
+        return doc != null;
+    }
 
     @Override
     public String toString() {
@@ -56,6 +69,9 @@ public class AvroField {
 
         if (defaultValue != NOT_SET) {
             joiner.add("defaultValue=" + defaultValue);
+        }
+        if (doc != null) {
+            joiner.add("doc='" + doc + "'");
         }
         return joiner.toString();
     }

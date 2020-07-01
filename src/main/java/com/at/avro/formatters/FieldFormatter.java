@@ -24,11 +24,17 @@ public class FieldFormatter implements Formatter<AvroField> {
                 .append("\"name\"").append(config.colon()).append("\"").append(field.getName()).append("\",")
                 .append(fieldLineSeparator).append(valueIndent)
                 .append("\"type\"").append(config.colon()).append(typeJson).append(",");
-
+    
         if (field.isDefaultValueSet()) {
             String defaultValue = shouldDefaultBeQuoted(field) ? "\"" + field.getDefaultValue() + "\"" : field.getDefaultValue() + "";
             builder = builder.append(fieldLineSeparator).append(valueIndent)
-                    .append("\"default\"").append(config.colon()).append(defaultValue);
+                    .append("\"default\"").append(config.colon()).append(defaultValue).append(",");
+        }
+        
+        if (field.isDocSet()) {
+            builder = builder
+                .append(fieldLineSeparator).append(valueIndent)
+                .append("\"doc\"").append(config.colon()).append("\"").append(field.getDoc()).append("\"");
         }
         else {
             builder.setLength(builder.length() - 1);

@@ -48,4 +48,12 @@ public class PgsqlIntegrationTest {
         AvroSchema avroSchema = extractor.getForTable(avroConfig, null, "array_table");
         assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/array_table.avsc")));
     }
+    
+    @Test
+    public void testDefaultTableWithDoc() {
+        AvroConfig avroConfigWithDoc = avroConfig.setUseSqlCommentsAsDoc(true);
+        AvroSchema avroSchema = extractor.getForTable(avroConfigWithDoc, null, "comment_table");
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/comment_table.avsc")));
+        
+    }
 }
