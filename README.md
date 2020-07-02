@@ -41,6 +41,7 @@ AvroConfig avroConfig = new AvroConfig("some.namespace")
     .setRepresentEnumsAsStrings(true) // use 'string' avro type instead of 'enum' for enums
     .setAllFieldsDefaultNull(true)    // adds default: 'null' to fields definition
     .setNullableTrueByDefault(true)   // makes all fields nullable
+    .setUseSqlCommentsAsDoc(true)     // use sql comments to fill 'doc' field
     .setSchemaNameMapper(new ToCamelCase().andThen(new RemovePlural())) // specify table name transformation to be used for schema name
     .setUnknownTypeResolver(type -> "string") // specify what to do with custom and unsupported db types
     .setDateTypeClass(Date.class) // add hint for avro compiler about which class to use for dates
