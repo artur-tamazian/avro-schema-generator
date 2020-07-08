@@ -187,11 +187,11 @@ public class HsqlIntegrationTest {
                 "name='test_comments', namespace='test.namespace', doc='Table with comments.', " +
                 "fields=[" +
                 "AvroField[name='id', type=AvroType[type=Primitive(int), nullable=false], doc='Id for the test_comments table.'], " +
-                "AvroField[name='name', type=AvroType[type=Primitive(string), nullable=true], doc=''], " +
-                "AvroField[name='created', type=AvroType[type=Date(long): timestamp-millis, nullable=false], doc=''], " +
-                "AvroField[name='updated', type=AvroType[type=Date(long): timestamp-millis, nullable=true], doc=''], " +
-                "AvroField[name='decimal_field', type=AvroType[type=Decimal(string): decimal[20:3], nullable=true], doc=''], " +
-                "AvroField[name='other_decimal_field', type=AvroType[type=Decimal(string): decimal[128:0], nullable=true], doc='']" +
+                "AvroField[name='name', type=AvroType[type=Primitive(string), nullable=true]], " +
+                "AvroField[name='created', type=AvroType[type=Date(long): timestamp-millis, nullable=false]], " +
+                "AvroField[name='updated', type=AvroType[type=Date(long): timestamp-millis, nullable=true]], " +
+                "AvroField[name='decimal_field', type=AvroType[type=Decimal(string): decimal[20:3], nullable=true]], " +
+                "AvroField[name='other_decimal_field', type=AvroType[type=Decimal(string): decimal[128:0], nullable=true]]" +
                 "], " +
                 "customProperties={}" +
                 "]"
