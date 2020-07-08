@@ -8,6 +8,7 @@ import java.util.StringJoiner;
 
 import com.at.avro.config.AvroConfig;
 
+import org.apache.commons.lang3.StringUtils;
 import schemacrawler.schema.Column;
 import schemacrawler.schema.Table;
 
@@ -49,7 +50,7 @@ public class AvroSchema {
     }
     
     public boolean isDocSet() {
-        return doc != null;
+        return StringUtils.isNotBlank(doc);
     }
 
     public List<AvroField> getFields() {
@@ -70,7 +71,7 @@ public class AvroSchema {
             .add("name='" + name + "'")
             .add("namespace='" + namespace + "'");
         
-        if (doc != null) {
+        if (isDocSet()) {
             joiner.add("doc='" + doc + "'");
         }
         joiner

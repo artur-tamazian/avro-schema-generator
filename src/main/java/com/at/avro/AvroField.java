@@ -1,6 +1,7 @@
 package com.at.avro;
 
 import com.at.avro.config.AvroConfig;
+import org.apache.commons.lang3.StringUtils;
 import schemacrawler.schema.Column;
 
 import java.util.StringJoiner;
@@ -58,7 +59,7 @@ public class AvroField {
     }
     
     public boolean isDocSet() {
-        return doc != null;
+        return StringUtils.isNotBlank(doc);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class AvroField {
         if (defaultValue != NOT_SET) {
             joiner.add("defaultValue=" + defaultValue);
         }
-        if (doc != null) {
+        if (isDocSet()) {
             joiner.add("doc='" + doc + "'");
         }
         return joiner.toString();
