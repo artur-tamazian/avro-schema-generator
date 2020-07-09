@@ -73,7 +73,7 @@ for (AvroSchema schema : schemas) {
 <dependency>
   <groupId>com.github.artur-tamazian</groupId>
   <artifactId>avro-schema-generator</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
 </dependency>
 ```
 
