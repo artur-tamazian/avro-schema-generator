@@ -5,21 +5,21 @@
 
     <groupId>com.github.artur-tamazian</groupId>
     <artifactId>avro-schema-generator</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
 
     <name>avro-schema-generator</name>
     <description>Library for generating avro schema files (.avsc) based on DB tables structure</description>
     <url>https://github.com/artur-tamazian/avro-schema-generator</url>
 
     <properties>
-        <schemacrawler.version>16.2.4</schemacrawler.version>
+        <schemacrawler.version>16.14.5</schemacrawler.version>
         <modeshape-common.version>5.3.0.Final</modeshape-common.version>
         <commons-lang.version>3.10</commons-lang.version>
         <mockito.version>3.1.0</mockito.version>
         <junit.version>4.12</junit.version>
         <hsqldb.version>2.5.0</hsqldb.version>
         <commons-io.version>2.5</commons-io.version>
-        <testcontainers.version>1.12.3</testcontainers.version>
+        <testcontainers.version>1.15.3</testcontainers.version>
     </properties>
 
     <build>
@@ -235,7 +235,7 @@
     <developers>
         <developer>
             <name>Artur Tamazian</name>
-            <email>artur@callfire.com</email>
+            <email>groovy.art@gmail.com</email>
             <organizationUrl>https://github.com/artur-tamazian</organizationUrl>
         </developer>
     </developers>

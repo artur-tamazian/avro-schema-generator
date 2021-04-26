@@ -1,19 +1,27 @@
 package com.at.avro;
 
-import static java.util.stream.Collectors.toList;
+import com.at.avro.config.AvroConfig;
+import schemacrawler.inclusionrule.RegularExpressionInclusionRule;
+import schemacrawler.schema.Catalog;
+import schemacrawler.schema.Schema;
+import schemacrawler.schema.Table;
+import schemacrawler.schemacrawler.LimitOptionsBuilder;
+import schemacrawler.schemacrawler.LoadOptionsBuilder;
+import schemacrawler.schemacrawler.SchemaCrawlerException;
+import schemacrawler.schemacrawler.SchemaCrawlerOptions;
+import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 
-import com.at.avro.config.AvroConfig;
-
-import schemacrawler.schema.Catalog;
-import schemacrawler.schema.Schema;
-import schemacrawler.schema.Table;
-import schemacrawler.schemacrawler.*;
-import schemacrawler.utility.SchemaCrawlerUtility;
+import static java.util.stream.Collectors.toList;
+import static schemacrawler.schemacrawler.SchemaCrawlerOptionsBuilder.newSchemaCrawlerOptions;
+import static schemacrawler.schemacrawler.SchemaInfoLevelBuilder.maximum;
 
 /**
  * Connects to a db and populates AvroSchema beans for existing tables.
@@ -63,12 +71,17 @@ public class DbSchemaExtractor {
     private List<AvroSchema> get(AvroConfig avroConfig, String dbSchemaName, String... tableNames) {
         try (Connection connection = DriverManager.getConnection(connectionUrl, connectionProperties)) {
 
-            SchemaCrawlerOptionsBuilder crawlerOptionsBuilder = defaultCrawlerOptionsBuilder();
+            SchemaCrawlerOptions options = newSchemaCrawlerOptions();
+            options = options.withLoadOptions(LoadOptionsBuilder.builder().withSchemaInfoLevel(maximum()).toOptions());
+
             if (dbSchemaName != null) {
-                crawlerOptionsBuilder.includeSchemas(new RegularExpressionInclusionRule(".*((?i)" + dbSchemaName + ")"));
+                LimitOptionsBuilder limitOptionsBuilder = LimitOptionsBuilder.builder();
+                String schemaPattern = ".*((?i)" + dbSchemaName + ")";
+                limitOptionsBuilder.includeSchemas(new RegularExpressionInclusionRule(schemaPattern));
+                options = options.withLimitOptions(limitOptionsBuilder.toOptions());
             }
 
-            Catalog catalog = SchemaCrawlerUtility.getCatalog(connection, crawlerOptionsBuilder.toOptions());
+            Catalog catalog = SchemaCrawlerUtility.getCatalog(connection, options);
 
             List<Schema> dbSchemas = new ArrayList<>(catalog.getSchemas());
             if (dbSchemaName != null) {
@@ -95,14 +108,6 @@ public class DbSchemaExtractor {
         catch (SchemaCrawlerException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private SchemaCrawlerOptionsBuilder defaultCrawlerOptionsBuilder() {
-        return SchemaCrawlerOptionsBuilder.builder()
-                .tableNamePattern("%")
-                .includeRoutines(new ExcludeAll())
-                .withSchemaInfoLevel(SchemaInfoLevelBuilder.maximum())
-                .includeColumns(new IncludeAll());
     }
 
     private boolean containsIgnoreCase(String[] array, String word) {
