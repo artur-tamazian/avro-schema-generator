@@ -1,0 +1,4 @@
+To release new version:
+- remove "-SNAPSHOT" from version
+- mvn deploy -Prelease (-DskipTests). More details here https://central.sonatype.org/publish/publish-maven/
+- update README and version and submit
