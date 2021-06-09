@@ -52,12 +52,17 @@ public class DbSchemaExtractor {
         return get(avroConfig, dbSchemaName);
     }
 
-    /** Returns AvroSchemas for each of given tables */
+    /** Returns AvroSchemas for each of given tables
+     *
+     * Note: when you have a schema with a large amount of tables but are only interested in a few of them,
+     * consider calling getForTable() several times (separately for every table). This might significantly speedup
+     * the process.
+     * */
     public List<AvroSchema> getForTables(AvroConfig avroConfig, String dbSchemaName, String... tableNames) {
         return get(avroConfig, dbSchemaName, tableNames);
     }
 
-    /** Returns AvroSchema for a specific table */
+    /** Returns AvroSchema for a specific table. */
     public AvroSchema getForTable(AvroConfig avroConfig, String dbSchemaName, String tableName) {
         List<AvroSchema> schemas = get(avroConfig, dbSchemaName, tableName);
         if (schemas.isEmpty()) {
@@ -74,12 +79,19 @@ public class DbSchemaExtractor {
             SchemaCrawlerOptions options = newSchemaCrawlerOptions();
             options = options.withLoadOptions(LoadOptionsBuilder.builder().withSchemaInfoLevel(maximum()).toOptions());
 
+            LimitOptionsBuilder limitOptionsBuilder = LimitOptionsBuilder.builder();
+
             if (dbSchemaName != null) {
-                LimitOptionsBuilder limitOptionsBuilder = LimitOptionsBuilder.builder();
                 String schemaPattern = ".*((?i)" + dbSchemaName + ")";
                 limitOptionsBuilder.includeSchemas(new RegularExpressionInclusionRule(schemaPattern));
-                options = options.withLimitOptions(limitOptionsBuilder.toOptions());
             }
+            if (tableNames.length == 1) {
+                // when we have only one table name we can use server side filter to speed things up
+                // downside: filter is case sensitive
+                limitOptionsBuilder.tableNamePattern(tableNames[0]);
+            }
+
+            options = options.withLimitOptions(limitOptionsBuilder.toOptions());
 
             Catalog catalog = SchemaCrawlerUtility.getCatalog(connection, options);
 
