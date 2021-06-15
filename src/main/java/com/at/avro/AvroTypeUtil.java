@@ -34,7 +34,7 @@ final class AvroTypeUtil {
         else if (asList("decimal", "numeric").contains(type)) {
             return new AvroType(new Decimal(column, config), nullable);
         }
-        else if (asList("timestamp", "datetime", "date", "time").contains(type)) {
+        else if (asList("timestamptz", "timestamp", "datetime", "date", "time").contains(type)) {
             return new AvroType(new Date(column, config), nullable);
         } else if (typeClz == java.sql.Array.class) {
             return new AvroType(new Array(new Primitive(getPrimitiveType(type.substring(1), config))), nullable);

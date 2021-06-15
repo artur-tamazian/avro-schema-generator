@@ -7,5 +7,6 @@ create table default_table
     "created"             timestamp   not null,
     "updated"             timestamp,
     "decimal_field"       decimal(20, 3),
-    "other_decimal_field" decimal
+    "other_decimal_field" decimal,
+    "cancelled"           timestamp with time zone
 );

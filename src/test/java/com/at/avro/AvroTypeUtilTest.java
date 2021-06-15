@@ -77,7 +77,7 @@ public class AvroTypeUtilTest {
 
     @Test
     public void testDateTypes() throws Exception {
-        String[] dateTypes = new String[] { "date", "time", "datetime", "timestamp" };
+        String[] dateTypes = new String[] { "date", "time", "datetime", "timestamp", "timestamptz" };
 
         for (String dateType : dateTypes) {
             AvroType avroType = AvroTypeUtil.getAvroType(column(dateType), defaultConfig());
