@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "small_table",
+  "namespace": "pgsql",
+
+  "fields": [
+    { "name": "id", "type": "int" }
+  ]
+}
