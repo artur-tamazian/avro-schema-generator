@@ -66,4 +66,10 @@ public class PgsqlIntegrationTest {
         AvroSchema arrayTableSchema = schemas.stream().sorted(Comparator.comparing(schema -> schema.getName())).findFirst().get();
         assertThat(arrayTableSchema.getFields().size(), is(7));
     }
+
+    @Test
+    public void testSchemaWithDashes() {
+        AvroSchema avroSchema = extractor.getForTable(avroConfig, "\"test-schema\"", "small_table");
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/small_table.avsc")));
+    }
 }

@@ -5,10 +5,7 @@ import schemacrawler.inclusionrule.RegularExpressionInclusionRule;
 import schemacrawler.schema.Catalog;
 import schemacrawler.schema.Schema;
 import schemacrawler.schema.Table;
-import schemacrawler.schemacrawler.LimitOptionsBuilder;
-import schemacrawler.schemacrawler.LoadOptionsBuilder;
-import schemacrawler.schemacrawler.SchemaCrawlerException;
-import schemacrawler.schemacrawler.SchemaCrawlerOptions;
+import schemacrawler.schemacrawler.*;
 import schemacrawler.tools.utility.SchemaCrawlerUtility;
 
 import java.sql.Connection;
@@ -97,9 +94,11 @@ public class DbSchemaExtractor {
 
             List<Schema> dbSchemas = new ArrayList<>(catalog.getSchemas());
             if (dbSchemaName != null) {
-                dbSchemas = dbSchemas.stream()
-                        .filter(schema -> dbSchemaName.equalsIgnoreCase(schema.getCatalogName()) || dbSchemaName.equalsIgnoreCase(schema.getName()))
-                        .collect(toList());
+                dbSchemas = dbSchemas.stream().filter(schema ->
+                        dbSchemaName.equalsIgnoreCase(schema.getCatalogName()) ||
+                        dbSchemaName.equalsIgnoreCase(schema.getName()) ||
+                        dbSchemaName.equalsIgnoreCase(Identifiers.STANDARD.quoteName(schema.getName())))
+                    .collect(toList());
             }
 
             List<AvroSchema> schemas = new LinkedList<>();
