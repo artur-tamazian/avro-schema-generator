@@ -96,8 +96,8 @@ public class DbSchemaExtractor {
             if (dbSchemaName != null) {
                 dbSchemas = dbSchemas.stream().filter(schema ->
                         dbSchemaName.equalsIgnoreCase(schema.getCatalogName()) ||
-                        dbSchemaName.equalsIgnoreCase(schema.getName()) ||
-                        dbSchemaName.equalsIgnoreCase(Identifiers.STANDARD.quoteName(schema.getName())))
+                        dbSchemaName.equalsIgnoreCase(schema.getFullName()) ||
+                        dbSchemaName.equalsIgnoreCase(Identifiers.STANDARD.quoteName(schema.getFullName())))
                     .collect(toList());
             }
 
