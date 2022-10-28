@@ -12,6 +12,6 @@
     { "name": "created", "type": { "type": "long", "logicalType": "timestamp-millis", "java-class": "java.util.Date" } },
     { "name": "updated", "type": [ "null", { "type": "long", "logicalType": "timestamp-millis", "java-class": "java.util.Date" } ] },
     { "name": "decimal_field", "type": [ "null", { "type": "string", "java-class": "java.math.BigDecimal", "logicalType": "decimal", "precision": 20, "scale": 3 } ] },
-    { "name": "other_decimal_field", "type": [ "null", { "type": "string", "java-class": "java.math.BigDecimal", "logicalType": "decimal", "precision": 131089, "scale": 0 } ] }
+    { "name": "other_decimal_field", "type": [ "null", { "type": "string", "java-class": "java.math.BigDecimal", "logicalType": "decimal", "precision": 0, "scale": 0 } ] }
   ]
 }
