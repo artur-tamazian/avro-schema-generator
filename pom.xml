@@ -17,7 +17,7 @@
         <commons-lang.version>3.10</commons-lang.version>
         <mockito.version>3.1.0</mockito.version>
         <junit.version>4.12</junit.version>
-        <hsqldb.version>2.5.0</hsqldb.version>
+        <hsqldb.version>2.7.1</hsqldb.version>
         <commons-io.version>2.7</commons-io.version>
         <testcontainers.version>1.15.3</testcontainers.version>
     </properties>
