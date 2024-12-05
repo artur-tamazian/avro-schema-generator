@@ -136,15 +136,34 @@ public class HsqlIntegrationTest {
     }
 
     @Test
+    public void testAddFieldDocumentation() {
+        avroConfig.setAvroSchemaPostProcessor(((schema, table) -> {
+            table.getColumns().forEach(column -> {
+                if (column.isPartOfForeignKey()) {
+                    schema.getFields().stream()
+                        .filter(field -> field.getName().equals(column.getName()))
+                        .findFirst()
+                        .ifPresent(field ->
+                            field.setDoc("foreign key to " + column.getReferencedColumn().getFullName()));
+                }
+            });
+        }));
+
+        AvroSchema avroSchema = extractor.getForTable(avroConfig, "public", "test_foreign_key_child");
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/hsql/avro/field_doc.avsc")));
+    }
+
+
+    @Test
     public void testGetAllAvroSchemas() {
         List<AvroSchema> result = extractor.getAll(avroConfig);
-        assertThat(result.size(), is(3));
+        assertThat(result.size(), is(5));
     }
 
     @Test
     public void testGetAvroSchemasInExistingDbSchema() {
         List<AvroSchema> result = extractor.getForSchema(avroConfig, "public");
-        assertThat(result.size(), is(3));
+        assertThat(result.size(), is(5));
     }
 
     @Test(expected = RuntimeException.class)
@@ -176,11 +195,11 @@ public class HsqlIntegrationTest {
                 "]"
         ));
     }
-    
+
     @Test
     public void testToStringWithDoc() {
         avroConfig.setUseSqlCommentsAsDoc(true);
-    
+
         AvroSchema avroSchema = extractor.getForTable(avroConfig, "public", "test_comments");
         assertThat(avroSchema.toString(), is(
             "AvroSchema[" +
@@ -197,13 +216,13 @@ public class HsqlIntegrationTest {
                 "]"
         ));
     }
-    
+
     @Test
     public void testUseSqlCommentsAsDoc() {
         avroConfig.setUseSqlCommentsAsDoc(true);
-        
+
         AvroSchema avroSchema = extractor.getForTable(avroConfig, "public", "test_comments");
         assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/hsql/avro/use_sql_comments_as_doc.avsc")));
     }
-    
+
 }
