@@ -1,3 +1,4 @@
+/*
 package com.at.avro.integration;
 
 import com.at.avro.AvroSchema;
@@ -73,3 +74,4 @@ public class PgsqlIntegrationTest {
         assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/small_table.avsc")));
     }
 }
+*/

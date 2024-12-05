@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "test_foreign_key_child",
+  "namespace": "test.namespace",
+
+  "fields": [
+    { "name": "id", "type": "int" },
+    { "name": "name", "type": [ "null", "string" ] },
+    { "name": "root_id", "type": "int", "doc": "foreign key to PUBLIC.PUBLIC.test_foreign_key_root.id" }
+  ]
+}

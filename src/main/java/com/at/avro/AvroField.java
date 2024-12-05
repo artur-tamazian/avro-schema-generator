@@ -32,7 +32,7 @@ public class AvroField {
         } else if (column.getDefaultValue() != null) {
             defaultValue = column.getDefaultValue().contains("NULL") ? null : defaultValue;
         }
-        
+
         if (avroConfig.isUseSqlCommentsAsDoc()) {
             doc = column.getRemarks();
         }
@@ -53,11 +53,15 @@ public class AvroField {
     public boolean isDefaultValueSet() {
         return defaultValue != NOT_SET;
     }
-    
+
     public String getDoc() {
         return doc;
     }
-    
+
+    public void setDoc(String doc) {
+        this.doc = doc;
+    }
+
     public boolean isDocSet() {
         return StringUtils.isNotBlank(doc);
     }
