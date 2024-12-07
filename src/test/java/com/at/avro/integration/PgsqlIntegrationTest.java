@@ -1,4 +1,4 @@
-/*
+
 package com.at.avro.integration;
 
 import com.at.avro.AvroSchema;
@@ -61,6 +61,22 @@ public class PgsqlIntegrationTest {
     }
 
     @Test
+    public void testAddFieldDocumentation() {
+        avroConfig.setAvroSchemaPostProcessor(((schema, table) -> {
+            table.getColumns().forEach(column -> {
+                schema.getFields().stream()
+                    .filter(field -> field.getName().equals("first_name"))
+                    .findFirst()
+                    .ifPresent(field -> field.setDoc("field doc"));
+            });
+        }));
+
+        AvroSchema avroSchema = extractor.getForTable(avroConfig, "public", "default_table");
+        assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/field_doc.avsc")));
+    }
+
+
+    @Test
     public void testMultipleTables() {
         List<AvroSchema> schemas = extractor.getForTables(avroConfig, null, "default_table", "comment_table", "array_table");
         assertThat(schemas.size(), is(3));
@@ -74,4 +90,4 @@ public class PgsqlIntegrationTest {
         assertThat(SchemaGenerator.generate(avroSchema), is(classPathResourceContent("/pgsql/avro/small_table.avsc")));
     }
 }
-*/
+
