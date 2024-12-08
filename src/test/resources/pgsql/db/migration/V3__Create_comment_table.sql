@@ -7,7 +7,7 @@ create table comment_table
     "created"             timestamp   not null,
     "updated"             timestamp,
     "decimal_field"       decimal(20, 3),
-    "other_decimal_field" decimal
+    "other_decimal_field" decimal(10,0)
 );
 
 comment on table comment_table is 'Table with comments.';
